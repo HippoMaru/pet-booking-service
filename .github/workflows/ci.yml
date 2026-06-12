@@ -22,14 +22,7 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-
-      - name: Cache Maven packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+          cache: maven
 
       - name: Build ${{ matrix.service }}
         run: mvn -B clean verify -f backend/${{ matrix.service }}/pom.xml
