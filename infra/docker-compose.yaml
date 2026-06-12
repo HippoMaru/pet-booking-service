@@ -1,0 +1,58 @@
+services:
+  gateway:
+    build: ../backend/gateway/
+    ports:
+      - "8080:8080"
+
+  user-service:
+    build: ../backend/user-service/
+    ports:
+      - "8081:8080"
+
+  event-service:
+    build: ../backend/event-service/
+    ports:
+      - "8082:8080"
+
+  booking-service:
+    build: ../backend/booking-service/
+    ports:
+      - "8083:8080"
+
+  payment-service:
+    build: ../backend/payment-service/
+    ports:
+      - "8084:8080"
+
+  notification-service:
+    build: ../backend/notification-service/
+    ports:
+      - "8085:8080"
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+          - pgdata:/var/lib/postgresql
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "15672:15672" # Management UI
+      - "5672:5672"    # AMQP port
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+volumes:
+  pgdata:
