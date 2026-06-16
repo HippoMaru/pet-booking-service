@@ -1,3 +1,5 @@
+name: ticket-booking
+
 services:
   gateway:
     build: ../backend/gateway/

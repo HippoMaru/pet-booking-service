@@ -1,4 +1,5 @@
 name: Qodana
+
 on:
   pull_request:
     branches:
