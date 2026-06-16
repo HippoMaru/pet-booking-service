@@ -10,6 +10,11 @@ services:
     build: ../backend/user-service/
     ports:
       - "8081:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/users_db
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_DRIVER: org.postgresql.Driver
 
   event-service:
     build: ../backend/event-service/
@@ -32,15 +37,15 @@ services:
       - "8085:8080"
 
   postgres:
-    image: postgres:latest
+    image: postgres:18.4
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydb
     ports:
       - "5432:5432"
     volumes:
           - pgdata:/var/lib/postgresql
+          - ./db/init:/docker-entrypoint-initdb.d
 
   redis:
     image: redis:latest
