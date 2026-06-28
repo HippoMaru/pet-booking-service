@@ -61,5 +61,14 @@ services:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
 
+  frontend:
+    build: ../frontend
+    ports:
+      - "8079:5173"
+    volumes:
+      - ../frontend/src:/app/src
+    depends_on:
+      - gateway
+
 volumes:
   pgdata:
